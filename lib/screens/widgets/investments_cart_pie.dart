@@ -1,9 +1,11 @@
+import 'package:assetdash_takehome/models/holding_model.dart';
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 class InvestmentsChartPie extends StatelessWidget {
-  final Map<String, double> dataMap;
-  const InvestmentsChartPie({Key? key, required this.dataMap})
+  final List<Holding> holdings;
+
+  const InvestmentsChartPie({Key? key, required this.holdings})
       : super(key: key);
 
   final List<Color> _colorList = const [
@@ -14,13 +16,40 @@ class InvestmentsChartPie extends StatelessWidget {
     Color(0xFF56AEE2),
   ];
 
+  Map<String, double> _getTopHoldings() {
+    final Map<String, double> topHoldings = {};
+    final List<Holding> sortedHoldings = holdings;
+    sortedHoldings.sort((a, b) => b.value.compareTo(a.value));
+
+    double totalValue = sortedHoldings.fold(
+        0, (previousValue, element) => previousValue + element.value);
+
+    for (var i = 0; i < sortedHoldings.length; i++) {
+      if (i < 4) {
+        double percentage = (sortedHoldings[i].value / totalValue) * 100;
+        topHoldings[sortedHoldings[i].name] = percentage;
+      } else {
+        topHoldings['Others'] = topHoldings['Others'] == null
+            ? sortedHoldings[i].value
+            : topHoldings['Others']! + sortedHoldings[i].value;
+      }
+    }
+
+    if (topHoldings.containsKey('Others')) {
+      double percentage = (topHoldings['Others']! / totalValue) * 100;
+      topHoldings['Others'] = percentage;
+    }
+
+    return topHoldings;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         PieChart(
-          dataMap: dataMap,
+          dataMap: _getTopHoldings(),
           animationDuration: const Duration(milliseconds: 800),
           chartLegendSpacing: 20,
           chartRadius: MediaQuery.of(context).size.width / 3.5,
@@ -66,12 +95,19 @@ class InvestmentsChartPie extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 10),
-                  Text(
-                    label,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.surface,
-                    ),
-                  ),
+                  label.length > 10
+                      ? Text(
+                          '${label.substring(0, 10)}...',
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.surface,
+                          ),
+                        )
+                      : Text(
+                          label,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.surface,
+                          ),
+                        ),
                 ],
               ),
               Text(
@@ -84,15 +120,20 @@ class InvestmentsChartPie extends StatelessWidget {
       );
     }
 
+    List<Widget> buildWidgets() {
+      var keysList = _getTopHoldings().keys.toList();
+      List<Widget> widgets = [];
+
+      _getTopHoldings().forEach((key, value) {
+        widgets.add(
+            _buildLegendItem(key, _colorList[keysList.indexOf(key)], value));
+      });
+
+      return widgets;
+    }
+
     return Column(
-      children: [
-        Column(children: [
-          _buildLegendItem('Flutter', _colorList[0], 100),
-          _buildLegendItem('Flutter', _colorList[1], 200),
-          _buildLegendItem('Flutter', _colorList[2], 300),
-          _buildLegendItem('Flutter', _colorList[3], 400),
-        ])
-      ],
+      children: [Column(children: buildWidgets())],
     );
   }
 }
