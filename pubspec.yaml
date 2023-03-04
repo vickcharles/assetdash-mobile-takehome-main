@@ -33,6 +33,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  pie_chart: ^5.3.2
 
 dev_dependencies:
   flutter_test:
@@ -74,15 +75,15 @@ flutter:
   fonts:
     - family: Inter
       fonts:
-        - asset: fonts/Inter/Inter-Black.ttf
-        - asset: fonts/Inter/Inter-Bold.ttf
-        - asset: fonts/Inter/Inter-ExtraBold.ttf
-        - asset: fonts/Inter/Inter-ExtraLight.ttf
-        - asset: fonts/Inter/Inter-Light.ttf
-        - asset: fonts/Inter/Inter-Medium.ttf
-        - asset: fonts/Inter/Inter-Regular.ttf
-        - asset: fonts/Inter/Inter-SemiBold.ttf
-        - asset: fonts/Inter/Inter-Thin.ttf
+        - asset: assets/fonts/Inter/Inter-Black.ttf
+        - asset: assets/fonts/Inter/Inter-Bold.ttf
+        - asset: assets/fonts/Inter/Inter-ExtraBold.ttf
+        - asset: assets/fonts/Inter/Inter-ExtraLight.ttf
+        - asset: assets/fonts/Inter/Inter-Light.ttf
+        - asset: assets/fonts/Inter/Inter-Medium.ttf
+        - asset: assets/fonts/Inter/Inter-Regular.ttf
+        - asset: assets/fonts/Inter/Inter-SemiBold.ttf
+        - asset: assets/fonts/Inter/Inter-Thin.ttf
 
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
