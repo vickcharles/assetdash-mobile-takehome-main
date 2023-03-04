@@ -2,14 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 class InvestmentsChartPie extends StatelessWidget {
-  final Map<String, double> dataMap = const {
-    "Flutter": 10,
-    "React": 3,
-    "Xamarin": 2,
-    "Ionic": 2,
-  };
-
-  const InvestmentsChartPie({Key? key}) : super(key: key);
+  final Map<String, double> dataMap;
+  const InvestmentsChartPie({Key? key, required this.dataMap})
+      : super(key: key);
 
   final List<Color> _colorList = const [
     Color(0xFFef6461),
@@ -21,37 +16,34 @@ class InvestmentsChartPie extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          PieChart(
-            dataMap: dataMap,
-            animationDuration: const Duration(milliseconds: 800),
-            chartLegendSpacing: 20,
-            chartRadius: MediaQuery.of(context).size.width / 3.5,
-            colorList: _colorList,
-            chartType: ChartType.ring,
-            ringStrokeWidth: 25,
-            chartValuesOptions: const ChartValuesOptions(
-              showChartValueBackground: false,
-              showChartValues: false,
-              showChartValuesInPercentage: false,
-              showChartValuesOutside: false,
-            ),
-            legendOptions: const LegendOptions(
-              showLegendsInRow: false,
-              showLegends: false,
-              legendPosition: LegendPosition.right,
-            ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        PieChart(
+          dataMap: dataMap,
+          animationDuration: const Duration(milliseconds: 800),
+          chartLegendSpacing: 20,
+          chartRadius: MediaQuery.of(context).size.width / 3.5,
+          colorList: _colorList,
+          chartType: ChartType.ring,
+          ringStrokeWidth: 25,
+          chartValuesOptions: const ChartValuesOptions(
+            showChartValueBackground: false,
+            showChartValues: false,
+            showChartValuesInPercentage: false,
+            showChartValuesOutside: false,
           ),
-          const SizedBox(
-            width: 20.0,
+          legendOptions: const LegendOptions(
+            showLegendsInRow: false,
+            showLegends: false,
+            legendPosition: LegendPosition.right,
           ),
-          Expanded(child: _buildLegendOptions(context)),
-        ],
-      ),
+        ),
+        const SizedBox(
+          width: 30.0,
+        ),
+        Expanded(child: _buildLegendOptions(context)),
+      ],
     );
   }
 

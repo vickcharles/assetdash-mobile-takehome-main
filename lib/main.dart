@@ -5,10 +5,6 @@ void main() {
   runApp(const MyApp());
 }
 
-// class MyAppColor extends ColorScheme {
-//   MyAppColor({required Color primary}) : super(primary: primary,   secondary: primary,  surface: primary, background: primary, error: primary, onPrimary: primary, onSecondary: primary, onSurface: primary, onBackground: primary, onError: primary, brightness: Brightness.light)
-// };
-
 class MyApp extends StatelessWidget {
   final myColorScheme = const ColorScheme(
     primary: Color(0xFF21ce9a),
@@ -32,7 +28,18 @@ class MyApp extends StatelessWidget {
       title: 'AssetsDash mobile takehome',
       theme: ThemeData(
         fontFamily: 'Inter',
-        textTheme: const TextTheme(),
+        textTheme: TextTheme(
+          labelMedium: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            color: myColorScheme.secondary,
+          ),
+          headline6: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            color: myColorScheme.surface,
+          ),
+        ),
         colorScheme: myColorScheme,
       ),
       home: const InvestmentsScreen(),
