@@ -15,9 +15,9 @@ class InvestmentsScreen extends StatefulWidget {
 
 class _InvestmentsScreenState extends State<InvestmentsScreen> {
   bool _loading = false;
-  String? userId;
+  String? _userId;
   String? _selectedOption;
-  late List<String> options = [];
+  late List<String> _options = [];
   final _searchFocusNode = FocusNode();
   HoldingList _holdingList = HoldingList(holdings: []);
 
@@ -28,13 +28,13 @@ class _InvestmentsScreenState extends State<InvestmentsScreen> {
   }
 
   Future _fetchHoldings({String? type}) async {
-    if (userId == null) return;
+    if (_userId == null) return;
     try {
       setState(() {
         _loading = true;
       });
-      final holdingList = await getHoldings(userId: int.parse(userId!));
-      options = holdingList.types;
+      final holdingList = await getHoldings(userId: int.parse(_userId!));
+      _options = holdingList.types;
       setState(() {
         _holdingList = type == null || type == 'All'
             ? holdingList
@@ -89,7 +89,8 @@ class _InvestmentsScreenState extends State<InvestmentsScreen> {
                 SearchBar(
                   onChange: (value) {
                     setState(() {
-                      userId = value.isEmpty ? null : value;
+                      _userId = value.isEmpty ? null : value;
+                      _selectedOption = null;
                     });
                     _fetchHoldings();
                   },
@@ -116,7 +117,7 @@ class _InvestmentsScreenState extends State<InvestmentsScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20),
+          padding: const EdgeInsets.symmetric(vertical: 30),
           child: Text(
             'Portfolio chart',
             style: Theme.of(context).textTheme.labelMedium,
@@ -138,7 +139,7 @@ class _InvestmentsScreenState extends State<InvestmentsScreen> {
         Expanded(
           flex: 3,
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20),
+            padding: const EdgeInsets.symmetric(vertical: 30),
             child: Text(
               'Portfolio holdings',
               style: Theme.of(context).textTheme.labelMedium,
@@ -148,7 +149,7 @@ class _InvestmentsScreenState extends State<InvestmentsScreen> {
         Expanded(
           flex: 1,
           child: CustomDropdownButton(
-            options: options,
+            options: _options,
             selectedOption: _selectedOption,
             onChanged: (value) {
               setState(() {

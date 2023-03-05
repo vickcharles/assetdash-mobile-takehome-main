@@ -1,3 +1,5 @@
+import 'package:mockito/annotations.dart';
+
 class Holding {
   Holding({
     required this.ticker,
@@ -25,6 +27,7 @@ class Holding {
       };
 }
 
+@GenerateNiceMocks([MockSpec<HoldingList>()])
 class HoldingList {
   HoldingList({
     required this.holdings,
