@@ -1,8 +1,9 @@
 import 'package:assetdash_takehome/models/holding_model.dart';
-import 'package:assetdash_takehome/screens/widgets/investments_cart_pie.dart';
+import 'package:assetdash_takehome/screens/widgets/portfolio_chart.dart';
 import 'package:assetdash_takehome/screens/widgets/investments_list.dart';
 import 'package:assetdash_takehome/screens/widgets/search_bar.dart';
 import 'package:assetdash_takehome/services/holdings.dart';
+import 'package:assetdash_takehome/widgets/dropdown.dart';
 import 'package:flutter/material.dart';
 
 class InvestmentsScreen extends StatefulWidget {
@@ -15,6 +16,8 @@ class InvestmentsScreen extends StatefulWidget {
 class _InvestmentsScreenState extends State<InvestmentsScreen> {
   bool _loading = false;
   String? userId;
+  String? _selectedOption;
+  late List<String> options = [];
   final _searchFocusNode = FocusNode();
   HoldingList _holdingList = HoldingList(holdings: []);
 
@@ -31,6 +34,7 @@ class _InvestmentsScreenState extends State<InvestmentsScreen> {
         _loading = true;
       });
       final holdingList = await getHoldings(userId: int.parse(userId!));
+      options = holdingList.types;
       setState(() {
         _holdingList = holdingList;
       });
@@ -57,26 +61,9 @@ class _InvestmentsScreenState extends State<InvestmentsScreen> {
   @override
   Widget build(BuildContext context) {
     final widgets = <Widget>[
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20),
-        child: Text('Portfolio chart',
-            style: Theme.of(context).textTheme.labelMedium),
-      ),
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        child: InvestmentsChartPie(
-          holdings: _holdingList,
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20),
-        child: Text('Portfolio holdings',
-            style: Theme.of(context).textTheme.labelMedium),
-      ),
-      Expanded(
-          child: InvestmentsList(
-        holdings: _holdingList,
-      ))
+      _buildChartSection(context),
+      _buildHoldingsSection(context),
+      _buildHoldinglistSection(context),
     ];
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
@@ -120,5 +107,64 @@ class _InvestmentsScreenState extends State<InvestmentsScreen> {
             ),
           ),
         ));
+  }
+
+  Widget _buildChartSection(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          child: Text(
+            'Portfolio chart',
+            style: Theme.of(context).textTheme.labelMedium,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: PortfolioChart(
+            holdings: _holdingList,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildHoldingsSection(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          flex: 3,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Text(
+              'Portfolio holdings',
+              style: Theme.of(context).textTheme.labelMedium,
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: CustomDropdownButton(
+            options: options,
+            selectedOption: _selectedOption,
+            onChanged: (value) {
+              setState(() {
+                _selectedOption = value;
+                _holdingList.holdings =
+                    _holdingList.filterHoldingsByType(value);
+              });
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildHoldinglistSection(BuildContext context) {
+    return Expanded(
+        child: InvestmentsList(
+      holdings: _holdingList,
+    ));
   }
 }

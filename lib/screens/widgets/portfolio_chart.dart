@@ -2,11 +2,10 @@ import 'package:assetdash_takehome/models/holding_model.dart';
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
 
-class InvestmentsChartPie extends StatelessWidget {
+class PortfolioChart extends StatelessWidget {
   final HoldingList holdings;
 
-  const InvestmentsChartPie({Key? key, required this.holdings})
-      : super(key: key);
+  const PortfolioChart({Key? key, required this.holdings}) : super(key: key);
 
   final List<Color> _colorList = const [
     Color(0xFFef6461),
