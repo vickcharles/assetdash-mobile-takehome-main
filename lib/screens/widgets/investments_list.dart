@@ -19,19 +19,17 @@ class InvestmentsList extends StatelessWidget {
 
   Widget _buildListTile(BuildContext context, Holding holding) {
     return ListTile(
-      contentPadding: EdgeInsets.zero,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 0),
       title: Text(
         holding.name,
-        style: Theme.of(context).textTheme.bodyText2,
+        style: Theme.of(context).textTheme.labelMedium,
       ),
       subtitle: Text(
         holding.ticker,
-        style: Theme.of(context).textTheme.subtitle1,
+        style: Theme.of(context).textTheme.headline6,
       ),
-      trailing: Text(
-        holding.value.toStringAsFixed(0),
-        style: Theme.of(context).textTheme.bodyText2,
-      ),
+      trailing: Text(holding.value.toStringAsFixed(0),
+          style: Theme.of(context).textTheme.labelMedium),
     );
   }
 }

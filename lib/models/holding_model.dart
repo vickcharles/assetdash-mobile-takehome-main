@@ -74,7 +74,6 @@ class HoldingList {
     return sortedHoldings;
   }
 
-  // create a getter to get list of all types and remove duplicates and return a list of strings
   List<String> get types {
     List<String> types = ['All'];
     for (var i = 0; i < holdings.length; i++) {
@@ -83,8 +82,10 @@ class HoldingList {
     return types.toSet().toList();
   }
 
-  List<Holding> filterHoldingsByType(String type) {
+  HoldingList filterHoldingsByType(String type) {
     List<Holding> filteredHoldings = List.from(holdings);
-    return filteredHoldings.where((element) => element.type == type).toList();
+    return HoldingList(
+        holdings:
+            filteredHoldings.where((element) => element.type == type).toList());
   }
 }

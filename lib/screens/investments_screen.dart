@@ -27,7 +27,7 @@ class _InvestmentsScreenState extends State<InvestmentsScreen> {
     _fetchHoldings();
   }
 
-  Future _fetchHoldings() async {
+  Future _fetchHoldings({String? type}) async {
     if (userId == null) return;
     try {
       setState(() {
@@ -36,7 +36,9 @@ class _InvestmentsScreenState extends State<InvestmentsScreen> {
       final holdingList = await getHoldings(userId: int.parse(userId!));
       options = holdingList.types;
       setState(() {
-        _holdingList = holdingList;
+        _holdingList = type == null || type == 'All'
+            ? holdingList
+            : holdingList.filterHoldingsByType(type);
       });
     } catch (e) {
       // ignore: avoid_print
@@ -151,9 +153,9 @@ class _InvestmentsScreenState extends State<InvestmentsScreen> {
             onChanged: (value) {
               setState(() {
                 _selectedOption = value;
-                _holdingList.holdings =
-                    _holdingList.filterHoldingsByType(value);
               });
+
+              _fetchHoldings(type: value);
             },
           ),
         ),
