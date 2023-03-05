@@ -15,6 +15,7 @@ class InvestmentsScreen extends StatefulWidget {
 class _InvestmentsScreenState extends State<InvestmentsScreen> {
   bool _loading = false;
   String? userId;
+  final _searchFocusNode = FocusNode();
   HoldingList _holdingList = HoldingList(holdings: []);
 
   @override
@@ -34,12 +35,23 @@ class _InvestmentsScreenState extends State<InvestmentsScreen> {
         _holdingList = holdingList;
       });
     } catch (e) {
+      // ignore: avoid_print
       print(e.toString());
     } finally {
       setState(() {
         _loading = false;
       });
     }
+  }
+
+  @override
+  void dispose() {
+    _searchFocusNode.dispose();
+    super.dispose();
+  }
+
+  void _handleScreenTap() {
+    _searchFocusNode.unfocus();
   }
 
   @override
@@ -77,31 +89,35 @@ class _InvestmentsScreenState extends State<InvestmentsScreen> {
                   .headline5!
                   .copyWith(color: Theme.of(context).colorScheme.primary)),
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SearchBar(
-                onChange: (value) {
-                  setState(() {
-                    userId = value.isEmpty ? null : value;
-                  });
-                  _fetchHoldings();
-                },
-              ),
-              if (_loading)
-                const Expanded(
-                    child: Center(child: CircularProgressIndicator()))
-              else if (_holdingList.holdings.isEmpty)
-                Expanded(
-                    child: Center(
-                        child: Text('No holdings found 📭',
-                            style: Theme.of(context).textTheme.labelMedium)))
-              else
-                ...widgets
-            ],
+        body: GestureDetector(
+          onTap: _handleScreenTap,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SearchBar(
+                  onChange: (value) {
+                    setState(() {
+                      userId = value.isEmpty ? null : value;
+                    });
+                    _fetchHoldings();
+                  },
+                  searchFocusNode: _searchFocusNode,
+                ),
+                if (_loading)
+                  const Expanded(
+                      child: Center(child: CircularProgressIndicator()))
+                else if (_holdingList.holdings.isEmpty)
+                  Expanded(
+                      child: Center(
+                          child: Text('No holdings found 📭',
+                              style: Theme.of(context).textTheme.labelMedium)))
+                else
+                  ...widgets
+              ],
+            ),
           ),
         ));
   }

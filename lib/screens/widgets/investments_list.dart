@@ -9,7 +9,7 @@ class InvestmentsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
         itemCount: holdings.sortedHoldings.length,
-        itemBuilder: (context, int) {
+        itemBuilder: (context, int int) {
           Holding holding = holdings.sortedHoldings[int];
           return ListTile(
             contentPadding: const EdgeInsets.symmetric(horizontal: 0),

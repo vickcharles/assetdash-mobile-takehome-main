@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 class SearchBar extends StatelessWidget {
+  final FocusNode searchFocusNode;
   final Function(String value) onChange;
-  const SearchBar({Key? key, required this.onChange}) : super(key: key);
+  const SearchBar(
+      {Key? key, required this.onChange, required this.searchFocusNode})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +28,7 @@ class SearchBar extends StatelessWidget {
       {required Color surface, required Color secondary}) {
     return TextField(
       onChanged: onChange,
+      focusNode: searchFocusNode,
       style: TextStyle(color: secondary),
       decoration: InputDecoration(
         hintText: 'Search by user id',
