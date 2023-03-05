@@ -15,8 +15,7 @@ class Holding {
       ticker: json["ticker"],
       name: json["name"],
       type: json["type"],
-      value: double.parse(json["value"].toString()) // parse to double
-      );
+      value: double.parse(json["value"].toString()));
 
   Map<String, dynamic> toJson() => {
         "ticker": ticker,
