@@ -41,4 +41,37 @@ class HoldingList {
   Map<String, dynamic> toJson() => {
         "holdings": List<dynamic>.from(holdings.map((x) => x.toJson())),
       };
+
+  Map<String, double> get getTopHoldingsAsMap {
+    final Map<String, double> topHoldings = {};
+    final List<Holding> sortedHoldings = holdings;
+    sortedHoldings.sort((a, b) => b.value.compareTo(a.value));
+
+    double totalValue = sortedHoldings.fold(
+        0, (previousValue, element) => previousValue + element.value);
+
+    for (var i = 0; i < sortedHoldings.length; i++) {
+      if (i < 4) {
+        double percentage = (sortedHoldings[i].value / totalValue) * 100;
+        topHoldings[sortedHoldings[i].name] = percentage;
+      } else {
+        topHoldings['Others'] = topHoldings['Others'] == null
+            ? sortedHoldings[i].value
+            : topHoldings['Others']! + sortedHoldings[i].value;
+      }
+    }
+
+    if (topHoldings.containsKey('Others')) {
+      double percentage = (topHoldings['Others']! / totalValue) * 100;
+      topHoldings['Others'] = percentage;
+    }
+
+    return topHoldings;
+  }
+
+  List<Holding> get sortedHoldings {
+    final List<Holding> sortedHoldings = holdings;
+    sortedHoldings.sort((a, b) => b.value.compareTo(a.value));
+    return sortedHoldings;
+  }
 }

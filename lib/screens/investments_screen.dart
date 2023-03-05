@@ -24,16 +24,17 @@ class _InvestmentsScreenState extends State<InvestmentsScreen> {
   }
 
   Future _fetchHoldings() async {
+    if (userId == null) return;
     try {
       setState(() {
         _loading = true;
       });
-      final holdingList = await getHoldings(userId: 0);
+      final holdingList = await getHoldings(userId: int.parse(userId!));
       setState(() {
         _holdingList = holdingList;
       });
     } catch (e) {
-      print(e);
+      print(e.toString());
     } finally {
       setState(() {
         _loading = false;
@@ -43,15 +44,38 @@ class _InvestmentsScreenState extends State<InvestmentsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final widgets = <Widget>[
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 20),
+        child: Text('Portfolio chart',
+            style: Theme.of(context).textTheme.labelMedium),
+      ),
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        child: InvestmentsChartPie(
+          holdings: _holdingList,
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 20),
+        child: Text('Portfolio holdings',
+            style: Theme.of(context).textTheme.labelMedium),
+      ),
+      Expanded(
+          child: InvestmentsList(
+        holdings: _holdingList,
+      ))
+    ];
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Theme.of(context).colorScheme.background,
           title: Text('AssetsDash portfolio tracker',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
-              )),
+              style: Theme.of(context)
+                  .textTheme
+                  .headline5!
+                  .copyWith(color: Theme.of(context).colorScheme.primary)),
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -62,27 +86,21 @@ class _InvestmentsScreenState extends State<InvestmentsScreen> {
               SearchBar(
                 onChange: (value) {
                   setState(() {
-                    userId = value;
+                    userId = value.isEmpty ? null : value;
                   });
+                  _fetchHoldings();
                 },
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: Text('Portfolio chart',
-                    style: Theme.of(context).textTheme.labelMedium),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: InvestmentsChartPie(
-                  holdings: _holdingList.holdings,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: Text('Portfolio holdings',
-                    style: Theme.of(context).textTheme.labelMedium),
-              ),
-              const Expanded(child: InvestmentsList())
+              if (_loading)
+                const Expanded(
+                    child: Center(child: CircularProgressIndicator()))
+              else if (_holdingList.holdings.isEmpty)
+                Expanded(
+                    child: Center(
+                        child: Text('No holdings found 📭',
+                            style: Theme.of(context).textTheme.labelMedium)))
+              else
+                ...widgets
             ],
           ),
         ));

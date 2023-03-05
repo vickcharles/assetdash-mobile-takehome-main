@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 class InvestmentsChartPie extends StatelessWidget {
-  final List<Holding> holdings;
+  final HoldingList holdings;
 
   const InvestmentsChartPie({Key? key, required this.holdings})
       : super(key: key);
@@ -16,40 +16,13 @@ class InvestmentsChartPie extends StatelessWidget {
     Color(0xFF56AEE2),
   ];
 
-  Map<String, double> _getTopHoldings() {
-    final Map<String, double> topHoldings = {};
-    final List<Holding> sortedHoldings = holdings;
-    sortedHoldings.sort((a, b) => b.value.compareTo(a.value));
-
-    double totalValue = sortedHoldings.fold(
-        0, (previousValue, element) => previousValue + element.value);
-
-    for (var i = 0; i < sortedHoldings.length; i++) {
-      if (i < 4) {
-        double percentage = (sortedHoldings[i].value / totalValue) * 100;
-        topHoldings[sortedHoldings[i].name] = percentage;
-      } else {
-        topHoldings['Others'] = topHoldings['Others'] == null
-            ? sortedHoldings[i].value
-            : topHoldings['Others']! + sortedHoldings[i].value;
-      }
-    }
-
-    if (topHoldings.containsKey('Others')) {
-      double percentage = (topHoldings['Others']! / totalValue) * 100;
-      topHoldings['Others'] = percentage;
-    }
-
-    return topHoldings;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         PieChart(
-          dataMap: _getTopHoldings(),
+          dataMap: holdings.getTopHoldingsAsMap,
           animationDuration: const Duration(milliseconds: 800),
           chartLegendSpacing: 20,
           chartRadius: MediaQuery.of(context).size.width / 3.5,
@@ -121,10 +94,10 @@ class InvestmentsChartPie extends StatelessWidget {
     }
 
     List<Widget> buildWidgets() {
-      var keysList = _getTopHoldings().keys.toList();
+      var keysList = holdings.getTopHoldingsAsMap.keys.toList();
       List<Widget> widgets = [];
 
-      _getTopHoldings().forEach((key, value) {
+      holdings.getTopHoldingsAsMap.forEach((key, value) {
         widgets.add(
             _buildLegendItem(key, _colorList[keysList.indexOf(key)], value));
       });
