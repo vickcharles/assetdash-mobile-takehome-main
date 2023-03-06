@@ -4,6 +4,11 @@
 
 Flutter app that retrieves data from an API and displays it in a pie chart and a table/list view. The app also allow users to filter the table/list view based on the asset type.
 
+
+## Screenshot
+
+<img src="images/portfolio-tracker-list.png" width="400"  /> <img src="images/porfolio-tracker-empty-list.png" width="400"  />
+
 ## How to Use 
 
 **Step 1:**
@@ -30,10 +35,20 @@ Run the project
 flutter run
 ```
 
-## Screenshot
 
-![Mobile Assignment](images/portfolio-tracker-list.png)
-![Mobile Assignment](images/porfolio-tracker-empty-list.png)
+## Runn the test
+
+```
+flutter test
+```
+
+## Packages
+
+- [Http](https://pub.dev/packages/http)
+- [Mockito](https://pub.dev/packages/mockito)
+- [Pie Chart](https://pub.dev/packages/pie_chart)
+- [Build_runner](https://pub.dev/packages/pie_chart)
+
 
 # AssetDash Mobile Engineering Take-home test
 
