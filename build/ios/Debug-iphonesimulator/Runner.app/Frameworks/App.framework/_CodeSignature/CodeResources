@@ -20,42 +20,6 @@
 		<data>
 		N1T1WoGRyuWnbKlvo/bcJPRjEt8=
 		</data>
-		<key>flutter_assets/assets/fonts/Inter/Inter-Black.ttf</key>
-		<data>
-		KD+mW5bcHy1xxlBK+5YQRHvc3xs=
-		</data>
-		<key>flutter_assets/assets/fonts/Inter/Inter-Bold.ttf</key>
-		<data>
-		SHR7emAIb5evDTc/68vR8b7ofxc=
-		</data>
-		<key>flutter_assets/assets/fonts/Inter/Inter-ExtraBold.ttf</key>
-		<data>
-		v/dyvmvKmJXG/c1X5dW+mkfy4Fg=
-		</data>
-		<key>flutter_assets/assets/fonts/Inter/Inter-ExtraLight.ttf</key>
-		<data>
-		QhByrvhhDLD3lmG0lEQqS5NjtD8=
-		</data>
-		<key>flutter_assets/assets/fonts/Inter/Inter-Light.ttf</key>
-		<data>
-		3Z7BrmfdhRQ7rPejyzfp8KyXmEM=
-		</data>
-		<key>flutter_assets/assets/fonts/Inter/Inter-Medium.ttf</key>
-		<data>
-		pBiounO7z6jBMcQmq4NteEV6+ps=
-		</data>
-		<key>flutter_assets/assets/fonts/Inter/Inter-Regular.ttf</key>
-		<data>
-		cjfZz1Xxd3AgZqKKTd4eTH6KtXY=
-		</data>
-		<key>flutter_assets/assets/fonts/Inter/Inter-SemiBold.ttf</key>
-		<data>
-		QxAH2jFt5g2FF0ruybg4m1xz59Y=
-		</data>
-		<key>flutter_assets/assets/fonts/Inter/Inter-Thin.ttf</key>
-		<data>
-		KXkZ1ZybpPoXJRzbnwbCbKkG5ZM=
-		</data>
 		<key>flutter_assets/fonts/MaterialIcons-Regular.otf</key>
 		<data>
 		mcmNrC70e/OT89y/p5EgxkVsLrs=
@@ -174,69 +138,6 @@
 			<key>hash2</key>
 			<data>
 			2lR5aHaf+M5sPfEm9qam1V0JutQtnYjeKDf31z0Jptc=
-			</data>
-		</dict>
-		<key>flutter_assets/assets/fonts/Inter/Inter-Black.ttf</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			OvsrBWVHWXu3kXv3VL1C8+u/SzJWCQLlVrFvG25mt1g=
-			</data>
-		</dict>
-		<key>flutter_assets/assets/fonts/Inter/Inter-Bold.ttf</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			eQwQi+/oWdrC3b0grz+7aRfGAbPVRMigV2FRnztVCP4=
-			</data>
-		</dict>
-		<key>flutter_assets/assets/fonts/Inter/Inter-ExtraBold.ttf</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			TiRzuf51wGjj87m6IyXGLanRvnQo2zCP2F3zC1Al4UU=
-			</data>
-		</dict>
-		<key>flutter_assets/assets/fonts/Inter/Inter-ExtraLight.ttf</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			7bpb4PE5zl9D2KRIanZmiBILrDV2QbhMYdFkAD8xUn0=
-			</data>
-		</dict>
-		<key>flutter_assets/assets/fonts/Inter/Inter-Light.ttf</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			xE/3pf3kgW+U/B5eIysCGoEqQRM53dCLCkdcpuIduBA=
-			</data>
-		</dict>
-		<key>flutter_assets/assets/fonts/Inter/Inter-Medium.ttf</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			ENSDMfWzxzYso1ewDBesSGOtNRmbE7Ds6wliyMGtfck=
-			</data>
-		</dict>
-		<key>flutter_assets/assets/fonts/Inter/Inter-Regular.ttf</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			QasPcHor+rgTPM382rUigvX3nldR9DomSAVFHHu5X7g=
-			</data>
-		</dict>
-		<key>flutter_assets/assets/fonts/Inter/Inter-SemiBold.ttf</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			6MvCuIvEJoI3/14lF3bTxU7csU4BWp5m5Ig73ktV8T8=
-			</data>
-		</dict>
-		<key>flutter_assets/assets/fonts/Inter/Inter-Thin.ttf</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			t3ilK4Tzm6HTsIVTokZkNXOzNFO1SBtNCcYEvMztkw0=
 			</data>
 		</dict>
 		<key>flutter_assets/fonts/MaterialIcons-Regular.otf</key>

@@ -117,6 +117,23 @@ class _InvestmentsScreenState extends State<InvestmentsScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
+          padding: const EdgeInsets.only(top: 20),
+          child: Text(
+            'Total Balance',
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.surface,
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 0),
+          child: Text(
+            '\$ ${_holdingList.totalValue.toStringAsFixed(0)}',
+            style:
+                Theme.of(context).textTheme.labelMedium!.copyWith(fontSize: 20),
+          ),
+        ),
+        Padding(
           padding: const EdgeInsets.symmetric(vertical: 30),
           child: Text(
             'Portfolio chart',

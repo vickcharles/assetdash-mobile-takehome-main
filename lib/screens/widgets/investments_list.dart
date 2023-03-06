@@ -28,7 +28,7 @@ class InvestmentsList extends StatelessWidget {
         holding.ticker,
         style: Theme.of(context).textTheme.headline6,
       ),
-      trailing: Text(holding.value.toStringAsFixed(0),
+      trailing: Text(' \$ ${holding.value.toStringAsFixed(0)}',
           style: Theme.of(context).textTheme.labelMedium),
     );
   }

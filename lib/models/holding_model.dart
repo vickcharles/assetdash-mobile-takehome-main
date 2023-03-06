@@ -44,6 +44,10 @@ class HoldingList {
         "holdings": List<dynamic>.from(holdings.map((x) => x.toJson())),
       };
 
+  // getter to get total value of all holdings
+  double get totalValue => holdings.fold(
+      0, (previousValue, element) => previousValue + element.value);
+
   Map<String, double> get getTopHoldingsAsMap {
     final Map<String, double> topHoldings = {};
     final List<Holding> sortedHoldings = holdings;
