@@ -1,3 +1,14 @@
+# AssetDash Mobile Engineering Take-home test - Solution
+
+## Getting Started
+
+Flutter app that retrieves data from an API and displays it in a pie chart and a table/list view. The app also allow users to filter the table/list view based on the asset type.
+
+## Screenshot
+
+![Mobile Assignment](images/portfolio-tracker-list.png)
+![Mobile Assignment](images/porfolio-tracker-empty-list.png)
+
 # AssetDash Mobile Engineering Take-home test
 
 Our mission at AssetDash is to help users track the assets in their portfolio from many different sources.
