@@ -9,7 +9,16 @@ Flutter app that retrieves data from an API and displays it in a pie chart and a
 
 <img src="images/portfolio-tracker-list.png" width="400"  /> <img src="images/porfolio-tracker-empty-list.png" width="400"  />
 
+
+
+
 ## How to Use 
+
+Project Requirements:
+
+The project requires the following components to be installed and configured:
+
+Flutter: The project requires Flutter SDK to be installed on the system. The current version of Flutter installed on the system should be stable, 3.3.4.
 
 **Step 1:**
 
