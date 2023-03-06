@@ -76,17 +76,26 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Inter
+    - family: Poppins
       fonts:
-        - asset: assets/fonts/Inter/Inter-Black.ttf
-        - asset: assets/fonts/Inter/Inter-Bold.ttf
-        - asset: assets/fonts/Inter/Inter-ExtraBold.ttf
-        - asset: assets/fonts/Inter/Inter-ExtraLight.ttf
-        - asset: assets/fonts/Inter/Inter-Light.ttf
-        - asset: assets/fonts/Inter/Inter-Medium.ttf
-        - asset: assets/fonts/Inter/Inter-Regular.ttf
-        - asset: assets/fonts/Inter/Inter-SemiBold.ttf
-        - asset: assets/fonts/Inter/Inter-Thin.ttf
+        - asset: fonts/poppins/Poppins-Black.ttf
+        - asset: fonts/poppins/Poppins-BlackItalic.ttf
+        - asset: fonts/poppins/Poppins-Bold.ttf
+        - asset: fonts/poppins/Poppins-BoldItalic.ttf
+        - asset: fonts/poppins/Poppins-ExtraBold.ttf
+        - asset: fonts/poppins/Poppins-ExtraBoldItalic.ttf
+        - asset: fonts/poppins/Poppins-ExtraLight.ttf
+        - asset: fonts/poppins/Poppins-ExtraLightItalic.ttf
+        - asset: fonts/poppins/Poppins-Italic.ttf
+        - asset: fonts/poppins/Poppins-Light.ttf
+        - asset: fonts/poppins/Poppins-LightItalic.ttf
+        - asset: fonts/poppins/Poppins-Medium.ttf
+        - asset: fonts/poppins/Poppins-MediumItalic.ttf
+        - asset: fonts/poppins/Poppins-Regular.ttf
+        - asset: fonts/poppins/Poppins-SemiBold.ttf
+        - asset: fonts/poppins/Poppins-SemiBoldItalic.ttf
+        - asset: fonts/poppins/Poppins-Thin.ttf
+        - asset: fonts/poppins/Poppins-ThinItalic.ttf
 
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

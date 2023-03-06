@@ -18,7 +18,7 @@ class _InvestmentsScreenState extends State<InvestmentsScreen> {
   String? _userId;
   String? _selectedOption;
   late List<String> _options = [];
-  final _searchFocusNode = FocusNode();
+  final FocusNode _searchFocusNode = FocusNode();
   HoldingList _holdingList = HoldingList(holdings: []);
 
   @override
@@ -99,7 +99,7 @@ class _InvestmentsScreenState extends State<InvestmentsScreen> {
                 if (_loading)
                   const Expanded(
                       child: Center(child: CircularProgressIndicator()))
-                else if (_holdingList.holdings.isEmpty)
+                else if (_holdingList.holdings.isEmpty || _userId == null)
                   Expanded(
                       child: Center(
                           child: Text('No holdings found 📭',

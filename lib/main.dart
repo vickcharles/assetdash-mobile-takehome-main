@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'AssetsDash mobile takehome',
       theme: ThemeData(
-        fontFamily: 'Inter',
+        fontFamily: 'Poppins',
         textTheme: TextTheme(
           labelMedium: TextStyle(
             fontSize: 16,
