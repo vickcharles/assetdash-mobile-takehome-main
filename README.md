@@ -1,4 +1,4 @@
-# AssetDash Mobile Engineering Take-home test - Solution
+# Portfolio Tracker - Solution
 
 ## Getting Started
 
