@@ -1,6 +1,4 @@
-# Portfolio Tracker - Solution
-
-## Getting Started
+# Investment Portfolio Tracker
 
 Flutter app that retrieves data from an API and displays it in a pie chart and a table/list view. The app also allow users to filter the table/list view based on the asset type.
 
