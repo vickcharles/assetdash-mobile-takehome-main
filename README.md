@@ -3,10 +3,6 @@
 Flutter app that retrieves data from an API and displays it in a pie chart and a table/list view. The app also allow users to filter the table/list view based on the asset type.
 
 
-## Screenshot
-
-<img src="images/portfolio-tracker-list.png" width="400"  /> <img src="images/porfolio-tracker-empty-list.png" width="400"  />
-
 ## How to Use 
 
 Project Requirements:
