@@ -1,10 +1,11 @@
-import 'package:assetdash_takehome/presentation/providers/holding_providers.dart';
+import 'package:assetdash_takehome/domain/entities/holding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 class PortfolioChart extends ConsumerWidget {
-  const PortfolioChart({Key? key}) : super(key: key);
+  final List<Holding> holdings;
+  const PortfolioChart({Key? key, required this.holdings}) : super(key: key);
 
   final List<Color> _colorList = const [
     Color(0xFFef6461),
@@ -14,14 +15,41 @@ class PortfolioChart extends ConsumerWidget {
     Color(0xFF56AEE2),
   ];
 
+  Map<String, double> getTopHoldingsAsMap(List<Holding> holdings) {
+    final Map<String, double> topHoldings = {};
+
+    holdings.sort((a, b) => b.value.compareTo(a.value));
+
+    double totalValue = holdings.fold(
+        0, (previousValue, element) => previousValue + element.value);
+
+    for (var i = 0; i < holdings.length; i++) {
+      if (i < 4) {
+        double percentage = (holdings[i].value / totalValue) * 100;
+        topHoldings[holdings[i].name] = percentage;
+      } else {
+        topHoldings['Others'] = topHoldings['Others'] == null
+            ? holdings[i].value
+            : topHoldings['Others']! + holdings[i].value;
+      }
+    }
+
+    if (topHoldings.containsKey('Others')) {
+      double percentage = (topHoldings['Others']! / totalValue) * 100;
+      topHoldings['Others'] = percentage;
+    }
+
+    return topHoldings;
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final map = ref.watch(topHoldings);
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         PieChart(
-          dataMap: {'': 0},
+          dataMap: getTopHoldingsAsMap(holdings),
           animationDuration: const Duration(milliseconds: 800),
           chartLegendSpacing: 20,
           chartRadius: MediaQuery.of(context).size.width / 3.5,
@@ -43,16 +71,18 @@ class PortfolioChart extends ConsumerWidget {
         const SizedBox(
           width: 30.0,
         ),
+        Expanded(
+            child: _buildLegendOptions(context, getTopHoldingsAsMap(holdings)))
       ],
     );
   }
 
-  Widget _buildLegendOptions(BuildContext context, map) {
+  Widget _buildLegendOptions(BuildContext context, Map<String, double> map) {
     Widget _buildLegendItem(String label, Color color, double value) {
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: 5.0),
         child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
@@ -104,7 +134,12 @@ class PortfolioChart extends ConsumerWidget {
     }
 
     return Column(
-      children: [Column(children: buildWidgets())],
+      children: [
+        Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: buildWidgets())
+      ],
     );
   }
 }

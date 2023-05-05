@@ -1,91 +1,33 @@
 import 'package:assetdash_takehome/data/repositories/holding_repository_imp.dart';
 import 'package:assetdash_takehome/domain/entities/holding.dart';
-import 'package:assetdash_takehome/domain/repositories/holding_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 enum HoldingStateStatus { initial, loading, data, error }
 
-final holdingNotifierProvider =
-    StateNotifierProvider<HoldingNotifier, HoldingState>((ref) {
-  return HoldingNotifier(repository: HoldingRepositoryImp());
+final userId = StateProvider<String>((ref) {
+  return '0';
 });
 
-class HoldingNotifier extends StateNotifier<HoldingState> {
-  final HoldingRepository repository;
+final selectedHolding = StateProvider<String>((ref) {
+  return 'All';
+});
 
-  HoldingNotifier({required this.repository}) : super(HoldingState.initial()) {
-    fetchHoldings(userId: 0);
-  }
+final holdingProvider = Provider<HoldingRepositoryImp>((ref) {
+  return HoldingRepositoryImp();
+});
 
-  Future<void> fetchHoldings({required int? userId}) async {
-    state = HoldingState.loading();
-    try {
-      final holdings = await repository.getHoldings(userId: userId);
-      state = HoldingState.data(holdings);
-    } catch (e) {
-      state = HoldingState.error(e.toString());
-    }
-  }
-}
+final holdingNotifierProvider = FutureProvider<List<Holding>>((ref) {
+  final user = ref.watch(userId);
+  final holdingsRepository = ref.watch(holdingProvider);
 
-class HoldingState {
-  final HoldingStateStatus status;
-  final List<Holding>? holdings;
-  final String? errorMessage;
+  return holdingsRepository.getHoldings(userId: int.parse(user));
+});
 
-  HoldingState({required this.status, this.holdings, this.errorMessage});
+final filteredHolding = FutureProvider<List<Holding>>((ref) async {
+  final type = ref.watch(selectedHolding);
+  final holdingsRepository = await ref.watch(holdingNotifierProvider.future);
 
-  factory HoldingState.initial() {
-    return HoldingState(status: HoldingStateStatus.initial);
-  }
-
-  factory HoldingState.loading() {
-    return HoldingState(status: HoldingStateStatus.loading);
-  }
-
-  factory HoldingState.data(List<Holding> holdings) {
-    return HoldingState(status: HoldingStateStatus.data, holdings: holdings);
-  }
-
-  factory HoldingState.error(String errorMessage) {
-    return HoldingState(
-        status: HoldingStateStatus.error, errorMessage: errorMessage);
-  }
-}
-
-final topHoldings = Provider((ref) {
-  final holdings = ref.watch(holdingNotifierProvider);
-
-  final Map<String, double> topHoldings = {
-    'Others': 0,
-  };
-
-  if (holdings.holdings!.isEmpty) {
-    return topHoldings;
-  }
-
-  final List<Holding> sortedHoldings = holdings.holdings!;
-
-  sortedHoldings.sort((a, b) => b.value.compareTo(a.value));
-
-  double totalValue = sortedHoldings.fold(
-      0, (previousValue, element) => previousValue + element.value);
-
-  for (var i = 0; i < sortedHoldings.length; i++) {
-    if (i < 4) {
-      double percentage = (sortedHoldings[i].value / totalValue) * 100;
-      topHoldings[sortedHoldings[i].name] = percentage;
-    } else {
-      topHoldings['Others'] = topHoldings['Others'] == null
-          ? sortedHoldings[i].value
-          : topHoldings['Others']! + sortedHoldings[i].value;
-    }
-  }
-
-  if (topHoldings.containsKey('Others')) {
-    double percentage = (topHoldings['Others']! / totalValue) * 100;
-    topHoldings['Others'] = percentage;
-  }
-
-  return topHoldings;
+  return type != "All"
+      ? holdingsRepository.where((element) => element.type == type).toList()
+      : holdingsRepository;
 });
