@@ -15,7 +15,7 @@ class PortfolioChart extends ConsumerWidget {
     Color(0xFF56AEE2),
   ];
 
-  Map<String, double> getTopHoldingsAsMap(List<Holding> holdings) {
+  Map<String, double> get getTopHoldingsAsMap {
     final Map<String, double> topHoldings = {};
 
     holdings.sort((a, b) => b.value.compareTo(a.value));
@@ -49,7 +49,7 @@ class PortfolioChart extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         PieChart(
-          dataMap: getTopHoldingsAsMap(holdings),
+          dataMap: getTopHoldingsAsMap,
           animationDuration: const Duration(milliseconds: 800),
           chartLegendSpacing: 20,
           chartRadius: MediaQuery.of(context).size.width / 3.5,
@@ -71,13 +71,12 @@ class PortfolioChart extends ConsumerWidget {
         const SizedBox(
           width: 30.0,
         ),
-        Expanded(
-            child: _buildLegendOptions(context, getTopHoldingsAsMap(holdings)))
+        Expanded(child: _buildLegendOptions(context))
       ],
     );
   }
 
-  Widget _buildLegendOptions(BuildContext context, Map<String, double> map) {
+  Widget _buildLegendOptions(BuildContext context) {
     Widget _buildLegendItem(String label, Color color, double value) {
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: 5.0),
@@ -122,10 +121,10 @@ class PortfolioChart extends ConsumerWidget {
     }
 
     List<Widget> buildWidgets() {
-      var keysList = map.keys.toList();
+      var keysList = getTopHoldingsAsMap.keys.toList();
       List<Widget> widgets = [];
 
-      map.forEach((key, value) {
+      getTopHoldingsAsMap.forEach((key, value) {
         widgets.add(
             _buildLegendItem(key, _colorList[keysList.indexOf(key)], value));
       });
