@@ -1,8 +1,9 @@
+import 'package:assetdash_takehome/presentation/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
-import 'screens/investments_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
